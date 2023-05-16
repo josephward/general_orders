@@ -5,8 +5,6 @@
 #include <iostream>
 #include "name_list.h"
 
-using namespace std;
-
 // General Information
 
 //Vector of officer ranks
@@ -36,9 +34,20 @@ vector<string> school_options
 //Vector of possible awards
 vector<string> award_options
 {
-    "Medal of Honor", "Silver Star", "Bronze Star", "Purple Heart", 
-    "Army Achievement Medal", "National Defense Service Medal",
-    "Army Service Ribbon"
+    "Medal of Honor", "Destinguished Service Cross", "Silver Star", "Bronze Star", "Purple Heart", 
+    "Army Achievement Medal", "National Defense Service Medal", "Army Service Ribbon"
+};
+
+// Useful Structs
+
+// Structure that custom sorts the vector<string> passed to 
+// std::sort from smallest to largest
+struct compare {
+    inline bool operator()(const std::string& first,
+        const std::string& second) const
+        {
+            return first.size() < second.size();
+        }
 };
 
 /**
@@ -87,5 +96,4 @@ class Company {
 
     public:
         Company(string id, string name, int head_count, Soldier commander);
-
 };

@@ -1,11 +1,12 @@
 // This file holds the classes and class functions that make up 
 // the units in the game.
 
-#include "classes.h"
+#include <algorithm>
+#include "/../include/classes.h"
 using namespace std;
 
-// General Classes
 
+// General Classes
 
 Soldier::Soldier(
     string name, string rank, int years_in_service, int years_in_grade, 
@@ -35,12 +36,12 @@ Soldier::Soldier()
     rank = "First Sergeant";
     years_in_service = 15 + rand() % 3;
     years_in_grade = rand() % 8;
-    awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal"});
+    awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal", "Purple Heart",
+        "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
     
     //Select a random school
     int temp = school_options.size() - 4;
     int z = rand() % temp;
-    cout << "Numb" << z << endl;
     schools.insert(schools.end(), {"BLC","ACL"});
     schools.push_back(school_options[z+4]);
 
@@ -55,18 +56,32 @@ Soldier::Soldier()
 
 //Prints out the important information in a nice format
 void Soldier::srb(){
-    cout << "============================================\n";
+
+    string spacer = "============================================\n";
+    cout << spacer;
     cout << rank + " " + name << endl;
-    cout << "============================================\n";
+    cout << spacer;
     
     cout << "MOS: " << mos << endl;
     cout << "Accuracy: " << accuracy << endl;
     cout << "Morale: " << morale << endl;
-    cout << "============================================\n";
+    cout << spacer;
     
-    string award_str = "Awards:\n";
+
+    // Sort the relevant vector
+    compare comp;
+    sort(awards.begin(), awards.end());         // Sort alphabetically
+    sort(awards.being(), awards.end(), comp)    // Sort by size
+    // Create Header Text
+    string award_header = "Awards:\n";
+    string award_str;
+    // Loop to assemble the award string for printing
     for(int i = 0; i<awards.size(); i++){
-        if (i == awards.size()-1){
+        // Statement to ensure that string doesn't extend beyond spacer's length
+        if (award_str.size() + awards[i].size() > spacer.size()){
+            award_str += "\n";
+        } 
+        if (i == awards.size()-1){ 
             award_str += awards[i];
         }
         else{
@@ -74,11 +89,16 @@ void Soldier::srb(){
         }
         
     }
-    cout << award_str + "\n";
+    cout << award_header << award_str + "\n";
 
-    cout << "============================================\n";
+    cout << spacer;
     string school_str = "Schools:\n";
     for(int i = 0; i<schools.size(); i++){
+        // Statement to ensure that string doesn't extend beyond
+        // spacer's length
+        if (school_str.size() + schools[i].size() > spacer.size()){
+            school_str += "\n";
+        }
         if (i == schools.size()-1){
             school_str += schools[i] + " ";
         }
@@ -88,7 +108,7 @@ void Soldier::srb(){
         
     }
     cout << school_str + "\n";
-    cout << "============================================\n";
+    cout << spacer;
 
 }
 
