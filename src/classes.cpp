@@ -56,7 +56,6 @@ Soldier::Soldier()
 //Prints out the important information in a nice format
 void Soldier::srb(){
     cout << "============================================\n";
-    cout << "============================================\n";
     cout << rank + " " + name << endl;
     cout << "============================================\n";
     
@@ -113,11 +112,4 @@ Company::Company(string id, string name, int head_count, Soldier commander)
     name = name;
     head_count = head_count;
     commander = commander;
-}
-
-
-int main(){
-    Soldier top = Soldier();
-    top.srb();
-
 }

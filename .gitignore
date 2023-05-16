@@ -1,0 +1,4 @@
+# Files that will not be commited by Github to the Repo
+
+# Ignore anything in the build folder
+build/
