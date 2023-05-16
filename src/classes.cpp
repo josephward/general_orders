@@ -45,7 +45,7 @@ Soldier::Soldier()
     schools.push_back(school_options[z+4]);
 
     //Randomly select an mos
-    string standard = "4";
+    string standard = "40";
     mos = "11B" + standard;
 
     morale = rand() % 20 + 80;
@@ -113,4 +113,11 @@ Company::Company(string id, string name, int head_count, Soldier commander)
     name = name;
     head_count = head_count;
     commander = commander;
+}
+
+
+int main(){
+    Soldier top = Soldier();
+    top.srb();
+
 }
