@@ -14,7 +14,7 @@ int main(){
     Soldier pvt = Soldier("Private 1st Class", "25U");
     Soldier pvt2 = Soldier("Staff Sergeant", "14L");
     Soldier gen = Soldier("General", "11X");
-    Soldier csm = Soldier("Command Sergeant Major", "11X");
+    Soldier csm = Soldier("Command Sergeant Major", "00Z");
 
     cout << "\n\n";
     pvt.srb();

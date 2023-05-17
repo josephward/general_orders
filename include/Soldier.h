@@ -22,7 +22,7 @@ class Soldier {
     // This is information which should be tied to the soldier's basic identity in the military
     std::string name;
     std::string rank;
-    int years_in_service;
+    double years_in_service;
     int years_in_grade;
     int number_of_deployments;
 
@@ -39,7 +39,7 @@ class Soldier {
 
     public:
         // Standard constructor if you are picking everything out
-        Soldier(std::string name, std::string rank, int years_in_service, 
+        Soldier(std::string name, std::string rank, double years_in_service, 
         int years_in_grade, int number_of_deployments, std::vector<std::string> awards, 
         std::vector<std::string>schools, std::string mos, double morale, int accuracy);
 
@@ -48,7 +48,7 @@ class Soldier {
         // Updates should have it focus on generating privates. 
         Soldier();
 
-        Soldier(std::string rank, std::string mos, int years_in_grade=0);        
+        Soldier(std::string rank, std::string mos, double years_in_grade=0);        
 
         void srb();
         void increment_year();

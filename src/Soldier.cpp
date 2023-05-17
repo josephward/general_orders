@@ -49,7 +49,7 @@ vector<string> award_options
 // General Classes
 
 Soldier::Soldier(
-    string name, string rank, int years_in_service, int years_in_grade, 
+    string name, string rank, double years_in_service, int years_in_grade, 
     int number_of_deployments, vector<string> awards, vector<string>schools, 
     string mos, double morale, int accuracy) 
 {
@@ -116,37 +116,105 @@ Soldier::Soldier(string r, string m, int yig){
     // schools.insert(schools.end(), {"BLC","ACL"});
     // schools.push_back(school_options[z+4]);
 
+    // General Soldier Information
+    morale = rand() % 20 + 80;
+    accuracy = 65 + rand() % 35;
+
     // Giant if statement to set up rank dependant attributes
+
+    // Enlisted Ranks
     if (rank == "Private"){
-        number_of_deployments = 0;
+        mos += "00";
+        years_in_service = 0.5;
+        number_of_deployments += 0;
     }
     else if (rank == "Private 2nd Class" || rank == "Private 1st Class"){
-        number_of_deployments = rand() % 2;
+        mos += "10";
+        years_in_service = 1;
+        number_of_deployments += rand() % 2;
     }
-    else if (rank == "Specialist" || rank == "Sergeant"){
-        number_of_deployments = 1 + rand() % 2;
+    else if (rank == "Specialist"){
+        mos += "20";
+        years_in_service = 2;
+        number_of_deployments += 1 + rand() % 2;
     }
-    else if (rank == "Staff Sergeant" || rank == "Sergeant First Class"){
-        number_of_deployments = 2 + rand() % 2;
+    // else if (rank == "Corperal"){
+    //     mos += "30";
+    //     years_in_service = 2.25;  
+    //     number_of_deployments += 1 + rand() % 2;
+    // }
+    else if (rank == "Sergeant"){
+        mos += "40";
+        years_in_service = 3;
+        number_of_deployments += 1 + rand() % 2;
     }
-    else if (rank == "First Sergeant" || rank == "Master Sergeant" || 
-                rank == "Sergeant Major" || rank == "Command Sergeant Major"){
-        number_of_deployments = 3 + rand() % 2;
+    else if (rank == "Staff Sergeant"){
+        mos += "40";
+        years_in_service = 7 + rand() % 2;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "Sergeant First Class"){
+        mos += "40";
+        years_in_service = 8 + rand() % 2;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "Master Sergeant"){
+        mos += "50";
+        years_in_service = 12 + rand() % 4;
+        number_of_deployments += 3 + rand() % 2;
+    }
+    else if (rank == "First Sergeant"){
+        mos += "5M";
+        years_in_service = 12 + rand() % 4;
+        number_of_deployments += 3 + rand() % 2;
+    }
+    else if (rank == "Sergeant Major"){
+        mos += "5Z";
+        years_in_service = 16 + rand() % 6;
+        number_of_deployments += 3 + rand() % 2;
+    }
+    else if (rank == "Command Sergeant Major"){
+        mos = "00Z"; //CSMs always have this specific code
+        years_in_service = 16 + rand() % 6;
+        number_of_deployments += 3 + rand() % 2;
     }
 
+    // Officer Ranks
     else if (rank == "2nd Lieutenant"){
-        number_of_deployments = 0;
+        years_in_service += 0;
+        number_of_deployments += 0;
     }
-    else if (rank == "1st Lieutenant" || rank == "Captain"){
-        number_of_deployments = rand() % 2;
+    else if (rank == "1st Lieutenant"){
+        years_in_service += 1.5;
+        number_of_deployments += rand() % 2;
     }
-    else if (rank == "Major" || rank == "Lieutenant Colonel"){
-        number_of_deployments = 1 + rand() % 2;
+    else if (rank == "Captain"){
+        years_in_service += 3.5;
+        number_of_deployments += rand() % 2;
     }
-    else if (rank == "Colonel" || rank == "Brigadier General" ||
-        rank == "Major General" || rank == "Lieutenant General",
-        rank == "General"){
-            number_of_deployments = 2 + rand() % 2;
+    else if (rank == "Major"){
+        years_in_service += 6.5 + rand() % 2;
+        number_of_deployments += 1 + rand() % 2; 
+    }
+    else if (rank == "Lieutenant Colonel"){
+        years_in_service += 9.5 + rand() % 2;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "Brigadier General"){
+        years_in_service += 10.5 + rand() % 4;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "Major General"){
+        years_in_service += 11.5 + rand() % 6;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "Lieutenant General"){
+        years_in_service += 12.5 + rand() % 8;
+        number_of_deployments += 2 + rand() % 2;
+    }
+    else if (rank == "General"){
+        years_in_service += 13.5 + rand() % 10;
+        number_of_deployments += 2 + rand() % 2;
     }
     // Catch if they try to input a bad rank
     else {
@@ -158,13 +226,7 @@ Soldier::Soldier(string r, string m, int yig){
     // Add deployments for combat MOSes
     if (mos == "11B"){
         number_of_deployments += 1;
-    }
-
-    // Set up the rest of the soldier information
-    years_in_service = 15 + rand() % 3;
-    morale = rand() % 20 + 80;
-    accuracy = 65 + rand() % 35;
-  
+    }  
 };
 
 //Prints out the important information in a nice format
