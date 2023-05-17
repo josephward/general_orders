@@ -24,6 +24,7 @@ vector<string> officer_ranks
 };
 
 //Vector of enlisted ranks
+//Does not support Corperal
 vector<string> enlisted_ranks
 {   "Private", "Private 2nd Class", "Private 1st Class",
     "Specialist", "Sergeant", "Staff Sergeant", 
@@ -49,13 +50,14 @@ vector<string> award_options
 
 Soldier::Soldier(
     string name, string rank, int years_in_service, int years_in_grade, 
-    vector<string> awards, vector<string>schools, string mos, double morale,
-    int accuracy) 
+    int number_of_deployments, vector<string> awards, vector<string>schools, 
+    string mos, double morale, int accuracy) 
 {
     name = name;
     rank = rank;
     years_in_service = years_in_service;
     years_in_grade = years_in_grade;
+    number_of_deployments = number_of_deployments;
     awards = awards;
     schools = schools;
     mos = mos;
@@ -75,6 +77,7 @@ Soldier::Soldier()
     rank = "First Sergeant";
     years_in_service = 15 + rand() % 3;
     years_in_grade = rand() % 8;
+    number_of_deployments = rand() % 3;
     awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal", "Purple Heart",
         "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
     
@@ -90,8 +93,81 @@ Soldier::Soldier()
 
     morale = rand() % 20 + 80;
     accuracy = 65 + rand() % 35;
-
 }
+
+Soldier::Soldier(string rank, string mos, int years_in_grade){
+
+    // Assign the given information
+    rank = rank;
+    mos = mos;
+    years_in_grade = years_in_grade;
+
+    // Generate random name
+    srand(time(NULL));
+    int x = rand() % soldier_first_names.size();
+    int y = rand() % soldier_last_names.size();
+    name = soldier_first_names[x] + " " + soldier_last_names[y];
+
+    // // Generate awards
+    // awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal", "Purple Heart",
+    //     "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
+
+    // //Select a random school
+    // int temp = school_options.size() - 4;
+    // int z = rand() % temp;
+    // schools.insert(schools.end(), {"BLC","ACL"});
+    // schools.push_back(school_options[z+4]);
+
+    // Giant if statement to set up rank dependant attributes
+    if (rank == "Private"){
+        number_of_deployments = 0;
+    }
+    else if (rank == "Private 2nd Class" || rank == "Private 1st Class"){
+        number_of_deployments = rand() % 2;
+    }
+    else if (rank == "Specialist" || rank == "Sergeant"){
+        number_of_deployments = 1 + rand() % 2;
+    }
+    else if (rank == "Staff Sergeant" || rank == "Sergeant First Class"){
+        number_of_deployments = 2 + rand() % 2;
+    }
+    else if (rank == "First Sergeant" || rank == "Master Sergeant" || 
+                rank == "Sergeant Major" || rank == "Command Sergeant Major"){
+        number_of_deployments = 3 + rand() % 2;
+    }
+
+    else if (rank == "2nd Lieutenant"){
+        number_of_deployments = 0;
+    }
+    else if (rank == "1st Lieutenant" || rank == "Captain"){
+        number_of_deployments = rand() % 2;
+    }
+    else if (rank == "Major" || rank == "Lieutenant Colonel"){
+        number_of_deployments = 1 + rand() % 2;
+    }
+    else if (rank == "Colonel" || rank == "Brigadier General" ||
+        rank == "Major General" || rank == "Lieutenant General",
+        rank == "General"){
+            number_of_deployments = 2 + rand() % 2;
+    }
+    // Catch if they try to input a bad rank
+    else {
+        throw invalid_argument("Invalid rank string passed to Soldier Constructor");
+    }
+
+    // Add attributes related to MOS
+
+    // Add deployments for combat MOSes
+    if (mos == "11B"){
+        number_of_deployments += 1;
+    }
+
+    // Set up the rest of the soldier information
+    years_in_service = 15 + rand() % 3;
+    morale = rand() % 20 + 80;
+    accuracy = 65 + rand() % 35;
+  
+};
 
 //Prints out the important information in a nice format
 void Soldier::srb(){
