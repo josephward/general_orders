@@ -69,7 +69,6 @@ Soldier::Soldier(
 Soldier::Soldier()
 {   
     // Generate random name
-    srand(time(NULL));
     int x = rand() % soldier_first_names.size();
     int y = rand() % soldier_last_names.size();
     name = soldier_first_names[x] + " " + soldier_last_names[y];
@@ -95,15 +94,14 @@ Soldier::Soldier()
     accuracy = 65 + rand() % 35;
 }
 
-Soldier::Soldier(string rank, string mos, int years_in_grade){
+Soldier::Soldier(string r, string m, int yig){
 
     // Assign the given information
-    rank = rank;
-    mos = mos;
-    years_in_grade = years_in_grade;
+    rank = r;
+    mos = m;
+    years_in_grade = yig;
 
     // Generate random name
-    srand(time(NULL));
     int x = rand() % soldier_first_names.size();
     int y = rand() % soldier_last_names.size();
     name = soldier_first_names[x] + " " + soldier_last_names[y];

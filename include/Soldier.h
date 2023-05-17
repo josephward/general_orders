@@ -24,6 +24,7 @@ class Soldier {
     std::string rank;
     int years_in_service;
     int years_in_grade;
+    int number_of_deployments;
 
     // Specific Soldier Information
     // Soldier information that shows their specific use/role in the military
@@ -39,13 +40,15 @@ class Soldier {
     public:
         // Standard constructor if you are picking everything out
         Soldier(std::string name, std::string rank, int years_in_service, 
-        int years_in_grade, std::vector<std::string> awards, std::vector<std::string>schools, 
-        std::string mos, double morale, int accuracy);
+        int years_in_grade, int number_of_deployments, std::vector<std::string> awards, 
+        std::vector<std::string>schools, std::string mos, double morale, int accuracy);
 
         // Default Constructor for Soldier Class
         // This constructor is temporarily being used to generate 1SGTs. 
         // Updates should have it focus on generating privates. 
-        Soldier();        
+        Soldier();
+
+        Soldier(std::string rank, std::string mos, int years_in_grade=0);        
 
         void srb();
         void increment_year();
