@@ -2,4 +2,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(general_orders)
 
 include_directories("include")
-add_executable(${PROJECT_NAME} src/main.cpp src/Soldier.cpp src/Company.cpp)
+add_executable(${PROJECT_NAME}  src/main.cpp 
+                                src/Soldier.cpp 
+                                src/Company.cpp
+                                src/name_list.cpp)
