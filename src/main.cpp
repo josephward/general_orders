@@ -1,15 +1,8 @@
 //Main file for the General Order Project.
 #include <algorithm>
 #include <iostream>
-#include "classes.h"
-
-
-void print_vect(vector<string> s){
-    std::cout << "\n\nVector Size: " << s.size() << endl;
-    for(int i = 0; i < s.size(); i++){
-        std::cout << s[i] << endl;
-    }
-}
+#include "../include/Company.h"
+#include "../include/Soldier.h"
 
 int main(){
     // cout << "\n";
