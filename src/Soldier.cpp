@@ -94,7 +94,7 @@ Soldier::Soldier()
     accuracy = 65 + rand() % 35;
 }
 
-Soldier::Soldier(string r, string m, int yig){
+Soldier::Soldier(string r, string m, double yig){
 
     // Assign the given information
     rank = r;
