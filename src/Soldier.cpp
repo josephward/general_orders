@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <chrono>
 #include <iostream>
+#include <stdexcept>
 #include "../include/Soldier.h"
 using namespace std;
 
@@ -42,8 +43,23 @@ vector<string> school_options
 //Vector of possible awards
 vector<string> award_options
 {
-    "Medal of Honor", "Destinguished Service Cross", "Silver Star", "Bronze Star", "Purple Heart", 
+    "Medal of Honor", "Distinguished Service Cross", "Silver Star", "Bronze Star", "Purple Heart", 
     "Army Achievement Medal", "National Defense Service Medal", "Army Service Ribbon"
+};
+//Percentage chance of getting the award, perc being 100.00 = 10000
+//Certain medals have a 0 percent chance to get them 
+//because they follow difference criteria
+vector<int> awards_perc_chance 
+{
+        1,      5,      100,    500,    2000,   0,  0,  0
+    //  Percent Chance
+    //  0.01    0.05    1       5       20      0   0   0
+};
+
+//Vector of combat mos
+vector<string> combat_mos 
+{
+    "11B", "12B", "13B", "13F", "14J", "15U", "19D", "19K", "68W", "74D", "89D" 
 };
 
 // General Classes
@@ -221,13 +237,63 @@ Soldier::Soldier(string r, string m, double yig){
         throw invalid_argument("Invalid rank string passed to Soldier Constructor");
     }
 
-    // Add attributes related to MOS
+    // Add attributes based on MOS and schools
 
-    // Add deployments for combat MOSes
-    if (mos == "11B"){
+    // Add extra deployment for combat MOSes
+    if (std::find(combat_mos.begin(), combat_mos.end(), mos) != combat_mos.end()){
         number_of_deployments += 1;
-    }  
+    }
+    // Add extra deployments for Rangers
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        number_of_deployments += 2;
+    }
+
+    // Add awards based on deployment numbers
+
+    // If there is an error throw an error
+    if (awards_perc_chance.size() != award_options.size()){
+        throw invalid_argument("Passed Awards List and Percent Change Vectors do not have the same size.");
+    }
+    // All soldiers get the Army Service Ribbon
+    awards.push_back(award_options[7]);
+    // If the soldier has been deployed, give them the 
+    // Army Achievement Medal and National Defense Service Medal
+    if (number_of_deployments > 0){
+        awards.push_back(award_options[5]);
+        awards.push_back(award_options[6]);
+    }
+    //For each medal option, 'randomly' give it to them
+    for (int i = 0; i < award_options.size(); i++){
+        int chance = 10000 - awards_perc_chance[i];
+        int r = rand() % 10001; // Selects a random number between 0.00 and 100.00
+        if (r >= chance){
+            awards.push_back(award_options[i]);
+        }
+    }
+    
+    
 };
+
+vector<string> Soldier::gen_awards(vector<string> options, vector<int> perc_chance, int deployments){
+    
+    // Setup the return vector
+    vector<string> awards_list;
+
+    // If there is an error exit the function and throw an error
+    if (perc_chance.size() != options.size()){
+        throw invalid_argument("Passed Awards List and Percent Change Vectors do not have the same size.");
+        return awards_list;
+    }
+    //For each medal option, 'randomly' give it to them
+    for (int i = 0; i < options.size(); i++){
+        int chance = 10000 - perc_chance[i];
+        int r = rand() % 10001; // Selects a random number between 0.00 and 100.00
+        if (r >= chance){
+            awards_list.push_back(options[i]);
+        }
+    }
+    return awards_list;
+}
 
 //Prints out the important information in a nice format
 void Soldier::srb(){

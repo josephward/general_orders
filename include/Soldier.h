@@ -50,6 +50,7 @@ class Soldier {
 
         Soldier(std::string rank, std::string mos, double years_in_grade=0);        
 
+        std::vector<std::string> gen_awards(std::vector<std::string> options, std::vector<int> perc_chance, int deployments);
         void srb();
         void increment_year();
 };
