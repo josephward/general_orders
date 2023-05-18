@@ -35,9 +35,9 @@ vector<string> enlisted_ranks
 
 //Vector of all possible schools
 vector<string> school_options
-{   "BLC", "ALC", "Sergeant Major School", "Field Grade School"
+{   
     "Airborne", "Air Assault", "Sapper", "Pathfinder",
-    "Sniper", "Selection", "Ranger", "Drill Sergeant"
+    "Sniper", "Ranger", "Drill Sergeant"
 };
 
 //Vector of possible awards
@@ -97,10 +97,9 @@ Soldier::Soldier()
         "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
     
     //Select a random school
-    int temp = school_options.size() - 4;
+    int temp = school_options.size();
     int z = rand() % temp;
-    schools.insert(schools.end(), {"BLC","ACL"});
-    schools.push_back(school_options[z+4]);
+    schools.push_back(school_options[z]);
 
     //Randomly select an mos
     string standard = "40";
@@ -270,8 +269,118 @@ Soldier::Soldier(string r, string m, double yig){
             awards.push_back(award_options[i]);
         }
     }
+
+    // Assign Schools based on years of service
+    int rr = 0;
+    int chance = 0;
+    string series = string() + mos[0] + mos[1];
+    bool officer = false;
+    if (std::find(officer_ranks.begin(), officer_ranks.end(), rank) != officer_ranks.end()){
+        officer = true;
+    }
     
-    
+    // Ranger
+    rr = rand() % 101;
+    chance = 3;
+    if (rr <= chance){
+        schools.push_back(school_options[5]);
+    }
+
+    // Drill Sergeant
+    if (rank == "Sergeant First Class" || rank == "Master Sergeant" || rank == "First Sergeant" || 
+        rank == "Sergeant Major" || rank == "Command Sergeant Major"){
+            rr = rand() % 101;
+            chance = 25; // 25% Percent Chance
+            if (rr <= chance){
+                schools.push_back(school_options[6]);
+            }
+    }
+
+    // Airborne
+    rr = rand() % 101;
+    chance = 20;
+    if (series == "11"){
+        chance += 5;
+    }
+    if (years_in_service >= 7){
+        chance += 5;
+    }
+    if (years_in_service >= 10){
+        chance += 5;
+    }
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        chance += 25;
+    }
+    if (rr <= chance){
+        schools.push_back(school_options[0]);
+    }
+
+    // Air Assault
+    rr = rand() % 101;
+    chance = 20;
+    if (series == "11"){
+        chance += 5;
+    }
+    if (years_in_service >= 7){
+        chance += 5;
+    }
+    if (years_in_service >= 10){
+        chance += 5;
+    }
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        chance += 25;
+    }
+    if (rr <= chance){
+        schools.push_back(school_options[1]);
+    }
+
+    // Pathfinder
+    if (std::find(schools.begin(), schools.end(), "Air Assault") != schools.end()){
+        rr = rand() % 101;
+        chance = 10;
+        if (series == "11"){
+        chance += 5;
+        }
+        if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        chance += 25;
+        }
+        if (rr <= chance){
+            schools.push_back(school_options[3]);
+        }
+    }
+
+    // Sapper
+    rr = rand() % 101;
+    chance = 5;
+    //If engineer increase chance of being Sapper
+    if (series == "12"){
+        chance += 10;
+    }
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        if (series == "12"){
+            chance += 25;
+        }
+    }
+    if (officer == true){
+        chance = 0;
+    }
+    if (rr <= chance){
+        schools.push_back(school_options[2]);
+    }
+
+    // Sniper
+    rr = rand() % 101;
+    chance = 5;
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        chance += 25;
+    }
+    if (officer == true){
+        chance = 0;
+    }
+    if (rr <= chance){
+        schools.push_back(school_options[4]);
+    }
+
 };
 
 vector<string> Soldier::gen_awards(vector<string> options, vector<int> perc_chance, int deployments){
@@ -303,6 +412,7 @@ void Soldier::srb(){
     cout << rank + " " + name << endl;
     cout << spacer;
     
+    cout << "Years of Service: " << years_in_service << endl;
     cout << "MOS: " << mos << endl;
     cout << "Accuracy: " << accuracy << endl;
     cout << "Morale: " << morale << endl;
