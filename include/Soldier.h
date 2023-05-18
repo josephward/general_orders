@@ -26,18 +26,19 @@ class Soldier {
     int years_in_grade;
     int number_of_deployments;
 
-    // Specific Soldier Information
-    // Soldier information that shows their specific use/role in the military
-    std::vector<std::string> awards;
-    std::vector<std::string> schools;
-    std::string mos;
-
     // Soldier Character Values
     // These values are going to be used in combat or effect how they interact 
     double morale;  
     int accuracy;
 
     public:
+
+        // Specific Soldier Information
+        // Soldier information that shows their specific use/role in the military
+        std::vector<std::string> awards;
+        std::vector<std::string> schools;
+        std::string mos;
+
         // Standard constructor if you are picking everything out
         Soldier(std::string name, std::string rank, double years_in_service, 
         int years_in_grade, int number_of_deployments, std::vector<std::string> awards, 

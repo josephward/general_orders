@@ -30,7 +30,7 @@ vector<string> enlisted_ranks
 {   "Private", "Private 2nd Class", "Private 1st Class",
     "Specialist", "Sergeant", "Staff Sergeant", 
     "Sergeant First Class", "Master Sergeant", "First Sergeant",
-    "Sergeant Major", "Command Sergeant Major:"
+    "Sergeant Major", "Command Sergeant Major"
 };
 
 //Vector of all possible schools
