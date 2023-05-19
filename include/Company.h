@@ -3,8 +3,10 @@
 #include <random>
 #include <chrono>
 #include <iostream>
+
 #include "name_list.h"
-#include "../include/Soldier.h"
+#include "Soldier.h"
+
 #ifndef COMPANY_H
 #define COMPANY_H
 using namespace std;

@@ -5,4 +5,5 @@ include_directories("include")
 add_executable(${PROJECT_NAME}  src/main.cpp 
                                 src/Soldier.cpp 
                                 src/Company.cpp
+                                src/Platoon.cpp
                                 src/name_list.cpp)

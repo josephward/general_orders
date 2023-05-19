@@ -1,6 +1,6 @@
 #include <string>
 #include <stdexcept>
-#include "../include/Company.h"
+#include "Company.h"
 
 /**
  * Class to create the Company, the basic command structure of

@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include "../include/name_list.h"
+#include "name_list.h"
 using namespace std;
 
 #ifndef SOLDIER_H

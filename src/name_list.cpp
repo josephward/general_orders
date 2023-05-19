@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-#include "../include/name_list.h"
+#include "name_list.h"
 
 using namespace std;
 
