@@ -31,13 +31,14 @@ class Soldier {
     double morale;  
     int accuracy;
 
-    public:
 
-        // Specific Soldier Information
-        // Soldier information that shows their specific use/role in the military
-        std::vector<std::string> awards;
-        std::vector<std::string> schools;
-        std::string mos;
+    // Specific Soldier Information
+    // Soldier information that shows their specific use/role in the military
+    std::vector<std::string> awards;
+    std::vector<std::string> schools;
+    std::string mos;
+
+    public:
 
         // Standard constructor if you are picking everything out
         Soldier(std::string name, std::string rank, double years_in_service, 
@@ -54,5 +55,11 @@ class Soldier {
         std::vector<std::string> gen_awards(std::vector<std::string> options, std::vector<int> perc_chance, int deployments);
         void srb();
         void increment_year();
+
+        // Getters
+        std::string get_rank(){
+            return rank;
+        }
+        
 };
 #endif
