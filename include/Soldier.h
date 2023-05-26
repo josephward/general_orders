@@ -8,7 +8,7 @@ using namespace std;
 
 /**
  * Class Definition for Soldier.h
- * 
+ *
  * This class builds Soldier objects, which are the basic blocks of any unit.
 */
 
@@ -27,8 +27,8 @@ class Soldier {
     int number_of_deployments;
 
     // Soldier Character Values
-    // These values are going to be used in combat or effect how they interact 
-    double morale;  
+    // These values are going to be used in combat or effect how they interact
+    double morale;
     int accuracy;
 
 
@@ -41,18 +41,15 @@ class Soldier {
     public:
 
         // Standard constructor if you are picking everything out
-        Soldier(std::string name, std::string rank, double years_in_service, 
-        int years_in_grade, int number_of_deployments, std::vector<std::string> awards, 
+        Soldier(std::string name, std::string rank, double years_in_service,
+        int years_in_grade, int number_of_deployments, std::vector<std::string> awards,
         std::vector<std::string>schools, std::string mos, double morale, int accuracy);
 
-        // Default Constructor for Soldier Class
-        // This constructor is temporarily being used to generate 1SGTs. 
-        // Updates should have it focus on generating privates. 
         Soldier();
 
-        Soldier(std::string rank, std::string mos, double years_in_grade=0);        
+        Soldier(std::string rank, std::string mos, double years_in_grade=0);
 
-        std::vector<std::string> gen_awards(std::vector<std::string> options, std::vector<int> perc_chance, int deployments);
+        vector<string> gen_awards(int deployments);
         void srb();
         void increment_year();
 
@@ -63,6 +60,9 @@ class Soldier {
         std::string get_name(){
             return name;
         }
-        
+        bool get_award(std::string search);
+
+        bool get_school(std::string search);
+
 };
 #endif

@@ -5,7 +5,7 @@
 #include "../include/Soldier.h"
 using namespace std;
 
-// Structure that custom sorts the vector<string> passed to 
+// Structure that custom sorts the vector<string> passed to
 // std::sort from smallest to largest
 struct compare {
     inline bool operator()(const std::string& first,
@@ -15,7 +15,7 @@ struct compare {
         }
 };
 
-// Vectors 
+// Vectors
 
 //Vector of officer ranks
 vector<string> officer_ranks
@@ -28,14 +28,14 @@ vector<string> officer_ranks
 //Does not support Corperal
 vector<string> enlisted_ranks
 {   "Private", "Private 2nd Class", "Private 1st Class",
-    "Specialist", "Sergeant", "Staff Sergeant", 
+    "Specialist", "Sergeant", "Staff Sergeant",
     "Sergeant First Class", "Master Sergeant", "First Sergeant",
     "Sergeant Major", "Command Sergeant Major"
 };
 
 //Vector of all possible schools
 vector<string> school_options
-{   
+{
     "Airborne", "Air Assault", "Sapper", "Pathfinder",
     "Sniper", "Ranger", "Drill Sergeant"
 };
@@ -43,13 +43,13 @@ vector<string> school_options
 //Vector of possible awards
 vector<string> award_options
 {
-    "Medal of Honor", "Distinguished Service Cross", "Silver Star", "Bronze Star", "Purple Heart", 
+    "Medal of Honor", "Distinguished Service Cross", "Silver Star", "Bronze Star", "Purple Heart",
     "Army Achievement Medal", "National Defense Service Medal", "Army Service Ribbon"
 };
 //Percentage chance of getting the award, perc being 100.00 = 10000
-//Certain medals have a 0 percent chance to get them 
+//Certain medals have a 0 percent chance to get them
 //because they follow difference criteria
-vector<int> awards_perc_chance 
+vector<int> awards_perc_chance
 {
         1,      5,      100,    500,    2000,   0,  0,  0
     //  Percent Chance
@@ -57,17 +57,17 @@ vector<int> awards_perc_chance
 };
 
 //Vector of combat mos
-vector<string> combat_mos 
+vector<string> combat_mos
 {
-    "11B", "12B", "13B", "13F", "14J", "15U", "19D", "19K", "68W", "74D", "89D" 
+    "11B", "12B", "13B", "13F", "14J", "15U", "19D", "19K", "68W", "74D", "89D"
 };
 
 // General Classes
 
 Soldier::Soldier(
-    string name, string rank, double years_in_service, int years_in_grade, 
-    int number_of_deployments, vector<string> awards, vector<string>schools, 
-    string mos, double morale, int accuracy) 
+    string name, string rank, double years_in_service, int years_in_grade,
+    int number_of_deployments, vector<string> awards, vector<string>schools,
+    string mos, double morale, int accuracy)
 {
     name = name;
     rank = rank;
@@ -81,34 +81,12 @@ Soldier::Soldier(
     accuracy = accuracy;
 }
 
-// Default constructor for Soldier class
-Soldier::Soldier()
-{   
-    // Generate random name
-    int x = rand() % soldier_first_names.size();
-    int y = rand() % soldier_last_names.size();
-    name = soldier_first_names[x] + " " + soldier_last_names[y];
-
-    rank = "First Sergeant";
-    years_in_service = 15 + rand() % 3;
-    years_in_grade = rand() % 8;
-    number_of_deployments = rand() % 3;
-    awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal", "Purple Heart",
-        "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
-    
-    //Select a random school
-    int temp = school_options.size();
-    int z = rand() % temp;
-    schools.push_back(school_options[z]);
-
-    //Randomly select an mos
-    string standard = "40";
-    mos = "11B" + standard;
-
-    morale = rand() % 20 + 80;
-    accuracy = 65 + rand() % 35;
+Soldier::Soldier(){
+    Soldier("First Sergeant", "11B", 0);
 }
 
+// General Constructor for the Soldier Class
+// Takes in the rank, mos, and year in grade of the soldier and uses various functions to generate the rest of the information.
 Soldier::Soldier(string r, string m, double yig){
 
     // Assign the given information
@@ -121,19 +99,10 @@ Soldier::Soldier(string r, string m, double yig){
     int y = rand() % soldier_last_names.size();
     name = soldier_first_names[x] + " " + soldier_last_names[y];
 
-    // // Generate awards
-    // awards.insert(awards.end(), {"Army Service Ribbon", "Army Achievement Medal", "Purple Heart",
-    //     "The Defense of Earth and Space Medal", "The Chinese Assault Badge", "Tawain Medal of Freedom"});
-
-    // //Select a random school
-    // int temp = school_options.size() - 4;
-    // int z = rand() % temp;
-    // schools.insert(schools.end(), {"BLC","ACL"});
-    // schools.push_back(school_options[z+4]);
-
     // General Soldier Information
     morale = rand() % 20 + 80;
     accuracy = 65 + rand() % 35;
+    number_of_deployments = 0;
 
     // Giant if statement to set up rank dependant attributes
 
@@ -155,7 +124,7 @@ Soldier::Soldier(string r, string m, double yig){
     }
     // else if (rank == "Corperal"){
     //     mos += "30";
-    //     years_in_service = 2.25;  
+    //     years_in_service = 2.25;
     //     number_of_deployments += 1 + rand() % 2;
     // }
     else if (rank == "Sergeant"){
@@ -209,7 +178,7 @@ Soldier::Soldier(string r, string m, double yig){
     }
     else if (rank == "Major"){
         years_in_service += 6.5 + rand() % 2;
-        number_of_deployments += 1 + rand() % 2; 
+        number_of_deployments += 1 + rand() % 2;
     }
     else if (rank == "Lieutenant Colonel"){
         years_in_service += 9.5 + rand() % 2;
@@ -242,33 +211,9 @@ Soldier::Soldier(string r, string m, double yig){
     if (std::find(combat_mos.begin(), combat_mos.end(), mos) != combat_mos.end()){
         number_of_deployments += 1;
     }
-    // Add extra deployments for Rangers
-    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
-        number_of_deployments += 2;
-    }
 
     // Add awards based on deployment numbers
-
-    // If there is an error throw an error
-    if (awards_perc_chance.size() != award_options.size()){
-        throw invalid_argument("Passed Awards List and Percent Change Vectors do not have the same size.");
-    }
-    // All soldiers get the Army Service Ribbon
-    awards.push_back(award_options[7]);
-    // If the soldier has been deployed, give them the 
-    // Army Achievement Medal and National Defense Service Medal
-    if (number_of_deployments > 0){
-        awards.push_back(award_options[5]);
-        awards.push_back(award_options[6]);
-    }
-    //For each medal option, 'randomly' give it to them
-    for (int i = 0; i < award_options.size(); i++){
-        int chance = 10000 - awards_perc_chance[i];
-        int r = rand() % 10001; // Selects a random number between 0.00 and 100.00
-        if (r >= chance){
-            awards.push_back(award_options[i]);
-        }
-    }
+    awards = gen_awards(number_of_deployments);
 
     // Assign Schools based on years of service
     int rr = 0;
@@ -278,16 +223,20 @@ Soldier::Soldier(string r, string m, double yig){
     if (std::find(officer_ranks.begin(), officer_ranks.end(), rank) != officer_ranks.end()){
         officer = true;
     }
-    
+
     // Ranger
     rr = rand() % 101;
     chance = 3;
     if (rr <= chance){
         schools.push_back(school_options[5]);
     }
+    // Add extra deployments for Rangers
+    if (std::find(schools.begin(), schools.end(), "Ranger") != schools.end()){
+        number_of_deployments += 2;
+    }
 
     // Drill Sergeant
-    if (rank == "Sergeant First Class" || rank == "Master Sergeant" || rank == "First Sergeant" || 
+    if (rank == "Sergeant First Class" || rank == "Master Sergeant" || rank == "First Sergeant" ||
         rank == "Sergeant Major" || rank == "Command Sergeant Major"){
             rr = rand() % 101;
             chance = 25; // 25% Percent Chance
@@ -383,25 +332,57 @@ Soldier::Soldier(string r, string m, double yig){
 
 };
 
-vector<string> Soldier::gen_awards(vector<string> options, vector<int> perc_chance, int deployments){
-    
+//Method which generates awards for a new soldier
+//TODO add a method which generates awards randomly during the combat portion
+vector<string> Soldier::gen_awards(int deployments){
+
     // Setup the return vector
     vector<string> awards_list;
 
     // If there is an error exit the function and throw an error
-    if (perc_chance.size() != options.size()){
+    if (awards_perc_chance.size() != award_options.size()){
         throw invalid_argument("Passed Awards List and Percent Change Vectors do not have the same size.");
         return awards_list;
     }
+
+    // All Soldiers get the Army Service Ribbon
+    awards_list.push_back(award_options[7]);
+
+    // If the soldier has been deployed, give them the
+    // Army Achievement Medal and National Defense Service Medal
+    if (deployments > 0){
+        awards_list.push_back(award_options[5]);
+        awards_list.push_back(award_options[6]);
+    }
+
     //For each medal option, 'randomly' give it to them
-    for (int i = 0; i < options.size(); i++){
-        int chance = 10000 - perc_chance[i];
+    //Soldiers cannot get some combat medals unless they deploy
+    if (deployments != 0){
+        for (int i = 0; i < award_options.size(); i++){
+        int chance = 10000 - awards_perc_chance[i];
         int r = rand() % 10001; // Selects a random number between 0.00 and 100.00
         if (r >= chance){
-            awards_list.push_back(options[i]);
+            awards_list.push_back(award_options[i]);
+            }
         }
     }
+
     return awards_list;
+}
+
+// If the search function does not get to the end of the awards list (it found the award) then return true
+bool Soldier::get_award(string search){
+    if (std::find(awards.begin(), awards.end(), search) != awards.end()){
+        return true;
+    }
+    return false;
+}
+
+bool Soldier::get_school(string search){
+    if (std::find(schools.begin(), schools.end(), search) != schools.end()){
+        return true;
+    }
+    return false;
 }
 
 //Prints out the important information in a nice format
@@ -411,13 +392,14 @@ void Soldier::srb(){
     cout << spacer;
     cout << rank + " " + name << endl;
     cout << spacer;
-    
+
     cout << "Years of Service: " << years_in_service << endl;
     cout << "MOS: " << mos << endl;
+    cout << "Number of Deployments: " << number_of_deployments << endl;
     cout << "Accuracy: " << accuracy << endl;
     cout << "Morale: " << morale << endl;
     cout << spacer;
-    
+
 
     // Sort the relevant vector
     compare comp;
@@ -431,14 +413,14 @@ void Soldier::srb(){
         // Statement to ensure that string doesn't extend beyond spacer's length
         if (award_str.size() + awards[i].size() > spacer.size()){
             award_str += "\n";
-        } 
-        if (i == awards.size()-1){ 
+        }
+        if (i == awards.size()-1){
             award_str += awards[i];
         }
         else{
             award_str += awards[i] + ", ";
         }
-        
+
     }
     cout << award_header << award_str + "\n";
 
@@ -456,7 +438,7 @@ void Soldier::srb(){
         else {
             school_str += schools[i] + ", ";
         }
-        
+
     }
     cout << school_str + "\n";
     cout << spacer;
