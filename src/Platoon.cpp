@@ -1,5 +1,5 @@
 
-#include "Platoon.h"
+#include "../include/Platoon.h"
 
 /**
  * Class to create a platoon, a subsection of a company. 

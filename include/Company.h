@@ -4,8 +4,8 @@
 #include <chrono>
 #include <iostream>
 
-#include "name_list.h"
-#include "Soldier.h"
+#include "../include/name_list.h"
+#include "../include/Soldier.h"
 
 #ifndef COMPANY_H
 #define COMPANY_H

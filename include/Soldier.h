@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include "name_list.h"
+#include "../include/name_list.h"
 using namespace std;
 
 #ifndef SOLDIER_H
@@ -59,6 +59,9 @@ class Soldier {
         // Getters
         std::string get_rank(){
             return rank;
+        }
+        std::string get_name(){
+            return name;
         }
         
 };

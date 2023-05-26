@@ -2,7 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <stdexcept>
-#include "Soldier.h"
+#include "../include/Soldier.h"
 using namespace std;
 
 // Structure that custom sorts the vector<string> passed to 

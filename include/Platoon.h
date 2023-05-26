@@ -1,5 +1,5 @@
 #include <vector>
-#include "Soldier.h"
+#include "../include/Soldier.h"
 
 #ifndef PLATOON_H
 #define PLATOON_H
